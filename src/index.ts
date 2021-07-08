@@ -21,7 +21,7 @@ $ tsc --init
 
 3. Running typescript
 Local version:
-- Include a command including "tsc" inside the "scripts" property in package.json, e.g:
+- Include a command including "tsc" in the "scripts" property in package.json, e.g:
 - package.json "scripts": { "dev": "tsc", "watch": "tsc --watch" }
 $ npm run dev
 $ npm run watch
@@ -32,6 +32,31 @@ $ tsc
 
 */
 
+
+// IMPLICIT AND EXPLICIT TYPES
+// --------------------------------------------------
+
+// IMPLICIT TYPES
+let implicitAny;                        // any
+let implicitString = "hello";           // string
+let implicitNumber = 10;                // number
+
+// For constants, the inferred "type" is the literal value that is assigned
+const implicitLiteralString = "world"; // "world"
+const implicitLiteralNumber = 20;      // 20
+
+// EXPLICIT TYPES
+let explicitAny: any;
+let explicitString: string = "hello";
+let explicitNumber: number = 10;
+// it's technically possible to define variables with a literal type,
+// but semantically it's better to use constants
+let explicitLiteralStringVar: "world" = "world";
+let explicitLiteralNumberVar: 20 = 20;
+// and for constants it's redundant to use the explicit syntax, it's ok to rely on
+// implicit types
+const explicitLiteralStringConst: "world" = "world";
+const explicitLiteralNumberConst: 20 = 20;
 
 */
 
