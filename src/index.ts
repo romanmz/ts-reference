@@ -58,6 +58,51 @@ let explicitLiteralNumberVar: 20 = 20;
 const explicitLiteralStringConst: "world" = "world";
 const explicitLiteralNumberConst: 20 = 20;
 
+
+// ASSIGNABILITY
+// --------------------------------------------------
+/*
+there is a top-down hierarchy of types where variables of a higher level type can
+be assigned a value from a lower level type, but the opposite is not possible.
+
+Example:
+- any
+- string
+- "a", "b", "c"…
+- never
 */
 
-console.log('trololo 456!');
+// : any accepts any type
+let anyValue: any;
+anyValue = "hello";
+anyValue = 100;
+anyValue = true;
+anyValue = null;
+anyValue = undefined;
+
+// : string accepts any string, no other types
+let anyString: string;
+anyString = "foo";
+anyString = "bar";
+// anyString = 100;                 // 🚨 ERROR!
+
+// : "hello" accepts ONLY strings that match exactly the text "hello"
+let literalString: "hello";
+literalString = "hello";
+// literalString = "world";         // 🚨 ERROR!
+
+// literal types can help you define limited sets of valid values
+let limitedSetOfStrings: "foo" | "bar" | "baz";
+limitedSetOfStrings = "foo";
+limitedSetOfStrings = "bar";
+limitedSetOfStrings = "baz";
+// limitedSetOfStrings = "hello";   // 🚨 ERROR!
+
+// : never doesn't match anything at all
+let neverValue: never;
+// neverValue = "foo";              // 🚨 ERROR!
+// neverValue = 10;                 // 🚨 ERROR!
+// neverValue = undefined;          // 🚨 ERROR!
+
+
+
