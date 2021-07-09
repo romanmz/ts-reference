@@ -62,7 +62,7 @@ const explicitLiteralNumberConst: 20 = 20;
 // ASSIGNABILITY
 // --------------------------------------------------
 /*
-there is a top-down hierarchy of types where variables of a higher level type can
+There is a top-down hierarchy of types where variables of a higher level type can
 be assigned a value from a lower level type, but the opposite is not possible.
 
 Example:
@@ -72,7 +72,7 @@ Example:
 - never
 */
 
-// : any accepts any type
+// : any; accepts any type
 let anyValue: any;
 anyValue = "hello";
 anyValue = 100;
@@ -80,13 +80,13 @@ anyValue = true;
 anyValue = null;
 anyValue = undefined;
 
-// : string accepts any string, no other types
+// : string; accepts any string, no other types
 let anyString: string;
 anyString = "foo";
 anyString = "bar";
 // anyString = 100;                 // 🚨 ERROR!
 
-// : "hello" accepts ONLY strings that match exactly the text "hello"
+// : "hello"; accepts ONLY strings that match exactly the text "hello"
 let literalString: "hello";
 literalString = "hello";
 // literalString = "world";         // 🚨 ERROR!
@@ -98,7 +98,7 @@ limitedSetOfStrings = "bar";
 limitedSetOfStrings = "baz";
 // limitedSetOfStrings = "hello";   // 🚨 ERROR!
 
-// : never doesn't match anything at all
+// : never; doesn't match anything at all
 let neverValue: never;
 // neverValue = "foo";              // 🚨 ERROR!
 // neverValue = 10;                 // 🚨 ERROR!
