@@ -59,6 +59,31 @@ const explicitLiteralStringConst: "world" = "world";
 const explicitLiteralNumberConst: 20 = 20;
 
 
+// NULLABLE TYPES / strictNullChecks
+// --------------------------------------------------
+
+// by default, typescript allows you to use 'null' and 'undefined' interchangeably:
+let nullValue: null = null;
+// nullValue = undefined;              // 🚨 ERROR (in strict mode only)
+
+// also, any other types can be 'nullable', so you can unset them even if the type
+// definition explicitly says it must conform to a non-null or undefined type:
+let strictString: string = "hello";
+// strictString = null;                // 🚨 ERROR (in strict mode only)
+// strictString = undefined;           // 🚨 ERROR (in strict mode only)
+
+// however since in JS null and undefined serve different purposes, it is best
+// practice to enable 'strictNullChecks' (or 'strict') mode in the config file to
+// require you to be explicit about what variables can be null or undefined
+let strictNullableString: string | null = "hello";
+strictNullableString = null;
+// strictNullableString = undefined;   // 🚨 ERROR (in strict mode only)
+
+let strictNullableString2: string | null | undefined = "hello";
+strictNullableString2 = null;
+strictNullableString2 = undefined;
+
+
 // ASSIGNABILITY
 // --------------------------------------------------
 /*
