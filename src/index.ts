@@ -150,3 +150,21 @@ if (typeof unionTypes === 'string') {
     unionTypes; // type is : never;
 }
 
+
+// ARRAYS AND TUPLES
+// --------------------------------------------------
+// To define an array type, define first the type for the internal items, and simply
+// add brackets at the end, the array can have any number of elements, and the
+// elements can be of any of the specified types regardless of their order
+const arrayOfNumbers: number[] = [1, 2, 3];
+const arrayOfNumbersOrStrings: (number | string)[] = [10, '10'];
+
+// If you want to strictly define a limited amount of allowed items in an array, as
+// well as the exact type for each of the elements, use the tuple syntax instead:
+let tupleOf2Items: [string, number] = ['home', 4490001122];
+// tupleOf2Items = ['home', 4490001122, 10];   // 🚨 ERROR! no more than 2 items are allowed
+// tupleOf2Items = ['home', '4490001122'];     // 🚨 ERROR! 2nd item is not of the correct type
+
+// ⚠️ WARNING: it's not possible for Typescript to prevent you from modifying the
+// structure of a tuple by using array methods, so be aware of that:
+tupleOf2Items.push(100);                        // no error but will break your tuple!
