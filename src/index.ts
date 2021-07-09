@@ -130,4 +130,23 @@ let neverValue: never;
 // neverValue = undefined;          // 🚨 ERROR!
 
 
+// TYPE NARROWING
+// --------------------------------------------------
+// Given a union type where you need to execute different code depending on the
+// actual type of the current value, you can simply add regular js type checks, and
+// Typescript is smart enough to "narrow" down the used types
+
+function getUnionType(): string | number | boolean {
+    return 1;
+}
+let unionTypes = getUnionType();
+if (typeof unionTypes === 'string') {
+    unionTypes; // type is : string;
+} else if (typeof unionTypes === 'number') {
+    unionTypes; // type is : number;
+} else if (typeof unionTypes === 'boolean') {
+    unionTypes; // type is : boolean;
+} else {
+    unionTypes; // type is : never;
+}
 
