@@ -233,6 +233,22 @@ const func1: FunctionType1 = (x, y) => {
 const func2: FunctionType2 = func1;
 const func3: FunctionInterface = func2;
 
+// by default, typescript doesn't do a strict check between a function type and its
+// actual implementation, this may cause uncaught errors, like when we use an
+// implementation that expects a strict type to conform to a more flexible type that
+// could accidentally send the incorrect type, e.g: the following function is
+// accepted by default, but rejected only if strictFunctionTypes is set to 'true'
+// const flexParamsToStrictParams: (x: number | string, y: number) => number = func1;   // 🚨 ERROR! only in strict mode
+
+// doing the opposite is always ok, since the final function will always send a more
+// restrictive variable type that the more flexible implementation should be able to
+// handle
+function anotherFunc(x: number | string, y: number) {
+    if (typeof x === 'number') return x + y;
+    return y;
+}
+const strictParamsToFlexParams: FunctionType1 = anotherFunc;
+
 // DEFINING CONSTRUCTOR SIGNATURES
 // ⚠️ NOTE: this is NOT for defining the signature of the constructor method of a
 // class, instead this is to define variables or function arguments that need to
