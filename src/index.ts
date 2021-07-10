@@ -168,3 +168,112 @@ let tupleOf2Items: [string, number] = ['home', 4490001122];
 // ⚠️ WARNING: it's not possible for Typescript to prevent you from modifying the
 // structure of a tuple by using array methods, so be aware of that:
 tupleOf2Items.push(100);                        // no error but will break your tuple!
+
+
+// TYPE ALIASES AND INTERFACES
+// --------------------------------------------------
+
+// CREATING TYPE ALIASES
+// types can alias any other type, including arrays and tuples
+type ScalarType = number;
+type ArrayType = string[];
+type TupleType = [string, number];
+type ObjectType = {};
+// interfaces can do the same by using an empty definition, but it only works on
+// object or function-like types, it's semantically not the same and it looks ugly
+// anyway so just use the 'type' keyword.
+interface ObjectInterface extends ObjectType { }
+
+// CREATING UNION TYPES
+type NumberOrString = number | string;
+// interfaces can't do this!
+
+// DEFINING OBJECT OR CLASS STRUCTURES
+type ShapeType = {
+    name: string;
+    size: number;
+    optional?: string;
+    draw(size: number): string;
+}
+interface ShapeInterface {
+    name: string;
+    size: number;
+    optional?: string;
+    draw(size: number): string;
+}
+// objects:
+const shapeObj: ShapeType = {
+    name: 'foo',
+    size: 10,
+    draw(size) {
+        return `drawn shape at ${size}px!`;
+    },
+};
+// classes:
+class ShapeClass implements ShapeInterface {
+    name = "hi";
+    size = 20;
+    draw(size) {
+        return `class drawn shape at ${size}px!`;
+    }
+}
+
+// DEFINING FUNCTION SIGNATURES
+type FunctionType1 = (x: number, y: number) => number;
+type FunctionType2 = {
+    (x: number, y: number): number;
+    // you could include more definitions but only one will be used
+}
+interface FunctionInterface {
+    (x: number, y: number): number;
+}
+const func1: FunctionType1 = (x, y) => {
+    return x + y;
+}
+const func2: FunctionType2 = func1;
+const func3: FunctionInterface = func2;
+
+// DEFINING CONSTRUCTOR SIGNATURES
+// ⚠️ NOTE: this is NOT for defining the signature of the constructor method of a
+// class, instead this is to define variables or function arguments that need to
+// receive the name of a class that already conforms to that construct signature
+type ConstructorType1 = new (name: string) => ShapeType;
+type ConstructorType2 = {
+    new(name: string): ShapeType;
+}
+interface ConstructorInterface {
+    new(name: string): ShapeType;
+}
+class ClassWithConstructor implements ShapeType {
+    name = "hi";
+    size = 10;
+    draw() {
+        return "~draw~";
+    }
+    constructor(name: string) {
+        this.name = name;
+        return this;
+    }
+}
+const classWithConstructor: ConstructorType1 = ClassWithConstructor;
+const instanceWithConstructor = new classWithConstructor("hexagon");
+
+// CREATING INTERSECTION TYPES / INTERFACE EXTENSIONS
+type IntersectingType1 = {
+    color: string;
+}
+type IntersectingType2 = {
+    id: number;
+}
+type IntersectingType = IntersectingType1 & IntersectingType2;
+interface IntersectingInterface extends IntersectingType1, IntersectingType2 { }
+// both properties will be required in both cases
+// extra properties not included in the types will cause errors
+const objTest: IntersectingType = {
+    color: 'red',
+    id: 20,
+}
+const objType2: IntersectingInterface = {
+    color: 'blue',
+    id: 30,
+}
