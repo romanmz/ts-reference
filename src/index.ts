@@ -182,6 +182,23 @@ const dictOfNumbersReverse: { [key: number]: string } = {
     // 3: 3,            // 🚨 ERROR!
 }
 
+// this dict syntax can also be used to make it so an object type can allow
+// indefinite properties:
+type ObjectWithSetProps = {
+    required1: string,
+    required2: number,
+    [key: string]: string | number,
+}
+const objSetProps: ObjectWithSetProps = {
+    // these are required!
+    required1: 'hi',
+    required2: 10,
+    // the following props would throw errors if it weren't because of the
+    // [key: string] type annotation
+    other1: 'lol',
+    other2: 20,
+};
+
 
 // TYPE ALIASES AND INTERFACES
 // --------------------------------------------------
