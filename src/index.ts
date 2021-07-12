@@ -323,3 +323,21 @@ const objType2: IntersectingInterface = {
     color: 'blue',
     id: 30,
 }
+
+// EXTENDING EXISTING INTERFACES
+// interfaces can be used to include additional requirements to existing interfaces
+// (you can't extend type aliases)
+interface SimpleContact {
+    name: string,
+    phone: number,
+    email: string,
+}
+const contact1: SimpleContact = {
+    name: 'John',
+    phone: 55500001111,
+    email: 'john@email.com',
+    fax: 1000,      // already required even if it was defined below!
+}
+interface SimpleContact {
+    fax: number;
+}
