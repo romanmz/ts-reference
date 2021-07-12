@@ -151,7 +151,7 @@ if (typeof unionTypes === 'string') {
 }
 
 
-// ARRAYS AND TUPLES
+// ARRAYS, TUPLES and DICTIONARIES
 // --------------------------------------------------
 // To define an array type, define first the type for the internal items, and simply
 // add brackets at the end, the array can have any number of elements, and the
@@ -168,6 +168,19 @@ let tupleOf2Items: [string, number] = ['home', 4490001122];
 // ⚠️ WARNING: it's not possible for Typescript to prevent you from modifying the
 // structure of a tuple by using array methods, so be aware of that:
 tupleOf2Items.push(100);                        // no error but will break your tuple!
+
+// To define the structure of a dictionary, use square brackets to define the type
+// of keys (only strings and numbers, and can't be mixed) and the type of values
+const dictOfNumbers: { [key: string]: number } = {
+    one: 1,
+    two: 2,
+    // three: '3',      // 🚨 ERROR!
+}
+const dictOfNumbersReverse: { [key: number]: string } = {
+    1: 'one',
+    2: 'two',
+    // 3: 3,            // 🚨 ERROR!
+}
 
 
 // TYPE ALIASES AND INTERFACES
